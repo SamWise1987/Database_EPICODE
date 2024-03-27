@@ -52,10 +52,22 @@ function displayUsers(users) {
 }
 let filterBy = 'name';
 
-async function filterUsers(query){
+async function filterUsers(query) {
     const users = await getUsers();
-    container.innerHTML= "";
+    container.innerHTML = "";
     const filteredUsers = users.filter(user => user[filterBy].toLowerCase().includes(query.toLowerCase()));
     displayUsers(filteredUsers);
-
 }
+
+document.querySelectorAll('#dropdown-item').forEach(item => {
+    item.addEventListener('click', function () {
+        filterBy = this.getAttribute('data-filter');
+    });
+});
+
+document.querySelector('.btn-search').addEventListener('click,', function () {
+    const query = document.querySelector('.search-input').value;
+    if(quesry) {
+        filterUsers(query);
+    }
+});
